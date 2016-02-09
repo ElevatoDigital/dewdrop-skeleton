@@ -1,0 +1,7 @@
+{
+    "name": "dewdrop-skeleton",
+    "version": "1.0.0",
+    "dependencies": {
+        "dewdrop": "1.*"
+    }
+}
