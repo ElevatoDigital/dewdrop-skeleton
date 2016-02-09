@@ -1,0 +1,9 @@
+{
+    "name": "deltasystems/dewdrop-skeleton",
+    "description": "A Dewdrop skeleton application to make it easier to get started",
+    "homepage": "https://github.com/DeltaSystems/dewdrop-skeleton",
+    "require": {
+        "deltasystems/dewdrop": "1.*"
+    }
+}
+
