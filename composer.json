@@ -1,4 +1,12 @@
 {
+    "autoload": {
+        "psr-4": {
+            "Model\\": "models",
+            "Command\\": "commands",
+            "App\\": "library/App",
+            "DewdropInstaller\\": "library/DewdropInstaller"
+        }
+    },
     "name": "deltasystems/dewdrop-skeleton",
     "description": "A Dewdrop skeleton application to make it easier to get started",
     "homepage": "https://github.com/DeltaSystems/dewdrop-skeleton",
