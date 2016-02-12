@@ -12,6 +12,10 @@
     "homepage": "https://github.com/DeltaSystems/dewdrop-skeleton",
     "require": {
         "deltasystems/dewdrop": "1.*"
+    },
+    "scripts": {
+        "pre-install-cmd": "DewdropInstaller\\Installer::install",
+        "pre-update-cmd": "DewdropInstaller\\Installer::install"
     }
 }
 
