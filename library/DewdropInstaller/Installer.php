@@ -22,7 +22,11 @@ class Installer
      */
     public static function install(Event $event)
     {
-        echo 'Installer test:' . PHP_EOL;
-        echo getcwd() . PHP_EOL;
+        $pluginFolder = basename(getcwd());
+
+        copy(
+            __DIR__ . '/wp-files/plugin-root-file.php',
+            getcwd() . '/' . $pluginFolder . '.php'
+        );
     }
 }
