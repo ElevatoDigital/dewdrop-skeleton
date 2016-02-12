@@ -14,8 +14,8 @@
         "deltasystems/dewdrop": "1.*"
     },
     "scripts": {
-        "pre-install-cmd": "DewdropInstaller\\Installer::install",
-        "pre-update-cmd": "DewdropInstaller\\Installer::install"
+        "post-install-cmd": "DewdropInstaller\\Installer::install",
+        "post-update-cmd": "DewdropInstaller\\Installer::install"
     }
 }
 

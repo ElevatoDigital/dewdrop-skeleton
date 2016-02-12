@@ -22,6 +22,7 @@ class Installer
      */
     public static function install(Event $event)
     {
-        echo 'Hello, WP!' . PHP_EOL;
+        echo 'Installer test:' . PHP_EOL;
+        echo getcwd() . PHP_EOL;
     }
 }
