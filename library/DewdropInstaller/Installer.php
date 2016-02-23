@@ -18,15 +18,52 @@ use RecursiveIteratorIterator;
 class Installer
 {
     /**
+     * @var Event
+     */
+    private $event;
+
+    public function __construct(Event $event)
+    {
+        $this->event = $event;
+        $this->io    = $event->getIO();
+
+        echo get_class($this->io) . PHP_EOL;
+        exit;
+    }
+
+    /**
      * @param Event $event
      */
     public static function install(Event $event)
     {
-        $pluginFolder = basename(getcwd());
+        $installer = new Installer($event);
+        $installer->run();
+    }
 
-        copy(
-            __DIR__ . '/wp-files/plugin-root-file.php',
-            getcwd() . '/' . $pluginFolder . '.php'
+    private function copyFiles(array $files)
+    {
+        foreach ($this->files as $source => $destination) {
+            copy(
+                __DIR__ . '/' . $source,
+                $destination
+            );
+        }
+
+        return $this;
+    }
+
+    private function installSilex()
+    {
+
+    }
+
+    private function installWordPress()
+    {
+        $this->copyFiles(
+            [
+                'wp-files/plugin-root-file.php' => getcwd() . '/' . basename(getcwd()) . '.php'
+            ]
         );
     }
 }
+
