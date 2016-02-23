@@ -18,14 +18,13 @@ use RecursiveIteratorIterator;
 class Installer
 {
     /**
-     * @var Event
+     * @var IOInterface
      */
-    private $event;
+    private $io;
 
-    public function __construct(Event $event)
+    public function __construct(IOInterface $io)
     {
-        $this->event = $event;
-        $this->io    = $event->getIO();
+        $this->io = $io;
 
         echo get_class($this->io) . PHP_EOL;
         exit;
@@ -36,7 +35,7 @@ class Installer
      */
     public static function install(Event $event)
     {
-        $installer = new Installer($event);
+        $installer = new Installer($event->getIO());
         $installer->run();
     }
 
