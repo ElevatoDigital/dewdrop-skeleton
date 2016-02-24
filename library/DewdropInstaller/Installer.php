@@ -2,20 +2,11 @@
 
 namespace DewdropInstaller;
 
-use Composer\Composer;
-use Composer\Factory;
 use Composer\IO\IOInterface;
-use Composer\Json\JsonFile;
-use Composer\Package\AliasPackage;
-use Composer\Package\Link;
-use Composer\Package\Version\VersionParser;
 use Composer\Script\Event;
-use Composer\Package\BasePackage;
+use DewdropInstaller\Env\EnvAbstract;
 use DewdropInstaller\Env\Silex as SilexEnv;
 use DewdropInstaller\Env\Wp as WpEnv;
-use FilesystemIterator;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 
 class Installer
 {
@@ -50,6 +41,7 @@ class Installer
     {
         $environmentOptions = [];
 
+        /* @var $environment EnvAbstract */
         foreach ($this->environments as $environment) {
             $environmentOptions[$environment->getSelectionCharacter()] = $environment->getName();
         }
@@ -59,6 +51,7 @@ class Installer
             $environmentOptions
         );
 
+        /* @var $environment EnvAbstract */
         foreach ($this->environments as $environment) {
             if ($environment->getSelectionCharacter() === $selected) {
                 $environment->install();
