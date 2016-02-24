@@ -94,7 +94,7 @@ class Installer
 
     public function copyFiles(array $files)
     {
-        foreach ($this->files as $source => $destination) {
+        foreach ($files as $source => $destination) {
             copy(
                 __DIR__ . '/' . $source,
                 $destination
