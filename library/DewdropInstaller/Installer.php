@@ -11,6 +11,8 @@ use Composer\Package\Link;
 use Composer\Package\Version\VersionParser;
 use Composer\Script\Event;
 use Composer\Package\BasePackage;
+use DewdropInstaller\Env\Silex as SilexEnv;
+use DewdropInstaller\Env\Wp as WpEnv;
 use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -22,12 +24,17 @@ class Installer
      */
     private $io;
 
+    /**
+     * @var array
+     */
+    private $environments = [];
+
     public function __construct(IOInterface $io)
     {
         $this->io = $io;
 
-        echo get_class($this->io) . PHP_EOL;
-        exit;
+        $this->environments[] = new SilexEnv($this);
+        $this->environments[] = new WpEnv($this);
     }
 
     /**
@@ -39,7 +46,58 @@ class Installer
         $installer->run();
     }
 
-    private function copyFiles(array $files)
+    public function run()
+    {
+        $environmentOptions = [];
+
+        foreach ($this->environments as $environment) {
+            $environmentOptions[$environment->getSelectionCharacter()] = $environment->getName();
+        }
+
+        $selected = $this->ask(
+            'What type of Dewdrop project are you creating?',
+            $environmentOptions
+        );
+
+        foreach ($this->environments as $environment) {
+            if ($environment->getSelectionCharacter() === $selected) {
+                $environment->install();
+            }
+        }
+    }
+
+    public function getIo()
+    {
+        return $this->io;
+    }
+
+    public function getIO()
+    {
+        return $this->io;
+    }
+
+    public function ask($question, array $options)
+    {
+        $output = [];
+
+        $output[] = sprintf('<question>%s</question>', $question);
+
+        foreach ($options as $selection => $title) {
+            $output[] = sprintf('[<comment>%s</comment>] %s', $selection, $title);
+        }
+
+        while (1) {
+            $answer = $this->io->ask(implode(PHP_EOL, $output) . PHP_EOL);
+
+            if (!array_key_exists($answer, $options)) {
+                $this->io->write('<error>Invalid option selected.</error>');
+            } else {
+                return $answer;
+            }
+        }
+    }
+
+    public function copyFiles(array $files)
     {
         foreach ($this->files as $source => $destination) {
             copy(
@@ -49,20 +107,6 @@ class Installer
         }
 
         return $this;
-    }
-
-    private function installSilex()
-    {
-
-    }
-
-    private function installWordPress()
-    {
-        $this->copyFiles(
-            [
-                'wp-files/plugin-root-file.php' => getcwd() . '/' . basename(getcwd()) . '.php'
-            ]
-        );
     }
 }
 
