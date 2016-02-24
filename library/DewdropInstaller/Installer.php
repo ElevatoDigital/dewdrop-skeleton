@@ -66,11 +66,6 @@ class Installer
         }
     }
 
-    public function getIo()
-    {
-        return $this->io;
-    }
-
     public function getIO()
     {
         return $this->io;
