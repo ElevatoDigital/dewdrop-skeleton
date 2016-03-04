@@ -11,7 +11,7 @@ class Wp extends EnvAbstract
             ->setName('WordPress');
     }
 
-    public function install()
+    public function install($title)
     {
         // @todo Detect whether we're in a working WP install and bail with error if not.
 
@@ -20,6 +20,10 @@ class Wp extends EnvAbstract
                 'wp-files/plugin-root-file.php' => getcwd() . '/' . basename(getcwd()) . '.php'
             ]
         );
+
+        $file_contents = file_get_contents($getcwd() . '/' . basename(getcwd()) . '.php');
+        $file_contents = str_replace("Dewdrop Skeleton Project", $title, $file_contents);
+        file_put_contents($getcwd() . '/' . basename(getcwd()) . '.php', $file_contents);
     }
 }
 
