@@ -1,0 +1,7 @@
+RewriteEngine On
+
+# Strip cache-busting prefixes from URLs
+RewriteRule ^cache-[\dA-Z.\-_]+/(.+) $1 [L,NC]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
