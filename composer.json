@@ -11,7 +11,8 @@
     "description": "A Dewdrop skeleton application to make it easier to get started",
     "homepage": "https://github.com/DeltaSystems/dewdrop-skeleton",
     "require": {
-        "deltasystems/dewdrop": "1.*"
+        "deltasystems/dewdrop": "1.*",
+        "silex/silex": "1.*"
     },
     "scripts": {
         "post-create-project-cmd": "DewdropInstaller\\Installer::install"
