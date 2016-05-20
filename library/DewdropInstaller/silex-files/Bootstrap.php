@@ -2,12 +2,14 @@
 
 namespace App;
 
+use Dewdrop\Admin\Env\Silex as SilexAdmin;
 use Dewdrop\Bootstrap\PimpleProviderInterface;
 use Dewdrop\Config;
 use Dewdrop\Db\Adapter as DbAdapter;
 use Dewdrop\Db\Driver\Pdo\Pgsql;
 use Dewdrop\Exception;
 use Dewdrop\Paths;
+use Dewdrop\View\View;
 use Monolog\Logger;
 use PDO;
 use Silex\Application as Silex;
@@ -52,6 +54,24 @@ class Bootstrap implements PimpleProviderInterface
                 'monolog.logfile' => $this->silex['paths']->getAppRoot() . '/logs/' . $this->silex['application-env'] . '.log',
                 'monolog.level'   => Logger::WARNING
             ]
+        );
+
+        $this->silex['view'] = function () {
+            $view = new View();
+
+            $view
+                ->registerHelper('inputtext', '\Dewdrop\View\Helper\BootstrapInputText')
+                ->registerHelper('select', '\Dewdrop\View\Helper\BootstrapSelect')
+                ->registerHelper('textarea', '\Dewdrop\View\Helper\BootstrapTextarea');
+
+            return $view;
+        };
+
+        $this->silex['admin'] = $this->silex->share(
+            function () {
+                $admin = new SilexAdmin($this->silex);
+                return $admin;
+            }
         );
 
         $this->silex['config'] = $this->silex->share(

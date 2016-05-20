@@ -14,4 +14,13 @@ use Dewdrop\Pimple;
 /* @var $silex \Silex\Application */
 $silex = Pimple::getInstance();
 
+$silex->get(
+    '/',
+    function () {
+        return file_get_contents(__DIR__ . '/dewdrop-index.html');
+    }
+);
+
+Pimple::getResource('admin')->registerComponentsInPath();
+
 $silex->run();
