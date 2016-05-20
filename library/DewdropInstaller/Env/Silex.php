@@ -20,17 +20,17 @@ class Silex extends EnvAbstract
         $io->write('<comment>information needed to connect to it below.</comment>');
         $io->write('');
 
-        $databaseName = $io->ask('<question>What is the database name?</question>');
-        $username     = $io->ask('<question>What is the username?</question>');
-        $password     = $io->askAndHideAnswer('<question>What is the password?</question>');
-        $hostname     = $io->ask('<question>What is the database host?</question>');
+        $databaseName = $io->ask("<question>What is the database name?</question>");
+        $username     = $io->ask("<question>What is the username?</question>");
+        $password     = $io->askAndHideAnswer("<question>What is the password?</question>");
+        $hostname     = $io->ask("<question>What is the database host?</question>");
 
         file_put_contents(
             '/tmp/dewdrop-config.tmp',
             str_replace(
                 ['[db-username]', '[db-password]', '[db-host]', '[db-name]'],
                 [$username, $password, $hostname, $databaseName],
-                file_get_contents(__DIR__  . '/silex-files/dewdrop-config.php')
+                file_get_contents(__DIR__  . '/../silex-files/dewdrop-config.php')
             ),
             LOCK_EX
         );
