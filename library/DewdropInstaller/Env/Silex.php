@@ -20,10 +20,10 @@ class Silex extends EnvAbstract
         $io->write('<comment>information needed to connect to it below.</comment>');
         $io->write('');
 
-        $databaseName = $io->ask("<question>What is the database name?</question>");
-        $username     = $io->ask("<question>What is the username?</question>");
-        $password     = $io->askAndHideAnswer("<question>What is the password?</question>");
-        $hostname     = $io->ask("<question>What is the database host?</question>");
+        $databaseName = $io->ask("<question>What is the database name?</question>\n");
+        $username     = $io->ask("<question>What is the username?</question>\n");
+        $password     = $io->askAndHideAnswer("<question>What is the password?</question>\n");
+        $hostname     = $io->ask("<question>What is the database host?</question>\n");
 
         file_put_contents(
             '/tmp/dewdrop-config.tmp',
@@ -43,7 +43,7 @@ class Silex extends EnvAbstract
             ]
         );
 
-        copy('/tmp/dewdrop-config.php', __DIR__ . '/../../../dewdrop-config.php');
+        copy('/tmp/dewdrop-config.tmp', __DIR__ . '/../../../dewdrop-config.php');
     }
 }
 
