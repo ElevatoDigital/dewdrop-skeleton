@@ -40,7 +40,7 @@ class Silex extends EnvAbstract
                 'silex-files/Bootstrap.php'      => __DIR__ . '/../../App/Bootstrap.php',
                 'silex-files/www-htaccess.txt'   => __DIR__ . '/../../../www/.htaccess',
                 'silex-files/www-index.php'      => __DIR__ . '/../../../www/index.php',
-                'silex-files/dewdrop-index.html' => __DIR__ . '/../../../www/'
+                'silex-files/dewdrop-index.html' => __DIR__ . '/../../../www/dewdrop-index.html'
             ]
         );
 
