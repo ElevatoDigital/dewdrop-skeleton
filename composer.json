@@ -14,7 +14,7 @@
         "deltasystems/dewdrop": "1.*"
     },
     "scripts": {
-        "post-install-cmd": "DewdropInstaller\\Installer::install"
+        "post-create-project-cmd": "DewdropInstaller\\Installer::install"
     }
 }
 
