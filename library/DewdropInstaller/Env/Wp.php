@@ -11,13 +11,17 @@ class Wp extends EnvAbstract
             ->setName('WordPress');
     }
 
-    public function install()
+    public function install($title)
     {
         $this->installer->copyFiles(
             [
                 'wp-files/plugin-root-file.php' => getcwd() . '/' . basename(getcwd()) . '.php'
             ]
         );
+
+        $file_contents = file_get_contents($getcwd() . '/' . basename(getcwd()) . '.php');
+        $file_contents = str_replace("Dewdrop Skeleton Project", $title, $file_contents);
+        file_put_contents($getcwd() . '/' . basename(getcwd()) . '.php', $file_contents);
     }
 }
 

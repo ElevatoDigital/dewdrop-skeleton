@@ -51,10 +51,14 @@ class Installer
             $environmentOptions
         );
 
+        $title = $this->ask(
+            'What do you want to name your plugin or application? (leave blank for default)'
+        ) ?: 'Dewdrop Skeleton Project';
+
         /* @var $environment EnvAbstract */
         foreach ($this->environments as $environment) {
             if ($environment->getSelectionCharacter() === $selected) {
-                $environment->install();
+                $environment->install($title);
             }
         }
     }
@@ -64,7 +68,7 @@ class Installer
         return $this->io;
     }
 
-    public function ask($question, array $options)
+    public function ask($question, array $options = null)
     {
         $output = [];
 
@@ -77,7 +81,7 @@ class Installer
         while (1) {
             $answer = $this->io->ask(implode(PHP_EOL, $output) . PHP_EOL);
 
-            if (!array_key_exists($answer, $options)) {
+            if (null !== $options && !array_key_exists($answer, $options)) {
                 $this->io->write('<error>Invalid option selected.</error>');
             } else {
                 return $answer;
